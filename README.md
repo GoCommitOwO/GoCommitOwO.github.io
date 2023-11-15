@@ -1,1 +1,1 @@
-# GoCommitOwO.github.io
+# slurs.github.io
