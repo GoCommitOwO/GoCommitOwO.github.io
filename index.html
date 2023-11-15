@@ -1,9 +1,67 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Title</title>
-  </head>
-  <body>
-    <p>Text</p>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        #image-container {
+            margin-top: 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Upload</h1>
+    <input type="file" id="upload-input" accept="image/*" required>
+    <button onclick="uploadImage()">Upload Image</button>
+    <div id="image-container"></div>
+
+    <script>
+        function uploadImage() {
+            const input = document.getElementById('upload-input');
+            const imageContainer = document.getElementById('image-container');
+            
+            if (input.files.length > 0) {
+                const file = input.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const imageUrl = e.target.result;
+
+                    // Save the image URL to localStorage (simulating hosting locally)
+                    localStorage.setItem('uploadedImage', imageUrl);
+
+                    // Display the image
+                    const imgElement = document.createElement('img');
+                    imgElement.src = imageUrl;
+
+                    // Clear previous content and append the new image
+                    imageContainer.innerHTML = '';
+                    imageContainer.appendChild(imgElement);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Check if there's a previously uploaded image in localStorage
+        const previousImage = localStorage.getItem('uploadedImage');
+        if (previousImage) {
+            const imgElement = document.createElement('img');
+            imgElement.src = previousImage;
+            document.getElementById('image-container').appendChild(imgElement);
+        }
+    </script>
+</body>
 </html>
